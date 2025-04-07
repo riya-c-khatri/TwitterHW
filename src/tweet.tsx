@@ -11,6 +11,33 @@ display a red heart "❤️" make sure to increase or decrease the like counter 
 Theres a 'tweet' class you can use to style your tweet.
 */
 
-
-
 // export default Tweet;
+interface TweetProps {
+    username: string;
+    tweetText: string;
+    initialLikes: number;
+    timestamp: string;
+  }
+  
+  const Tweet: React.FC<TweetProps> = ({ username, tweetText, initialLikes, timestamp }) => {
+    const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState(initialLikes);
+  
+    const handleLike = () => {
+      setLiked(!liked);
+      setLikes(liked ? likes - 1 : likes + 1);
+    };
+  
+    return (
+      <div className="tweet">
+        <h2>{username}</h2>  {/* Display username as the name */}
+        <p>{tweetText}</p>
+        <div onClick={handleLike} style={{ cursor: 'pointer', fontSize: '20px' }}>
+          {liked ? '❤️' : '🤍'} {likes}
+        </div>
+        <small>{timestamp}</small>  {/* Display timestamp */}
+      </div>
+    );
+  };
+  
+  export default Tweet;
